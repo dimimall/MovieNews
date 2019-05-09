@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Movie News</string>
+    <string name="navigation_drawer_open">Άνοιγμα navigation drawer</string>
+    <string name="navigation_drawer_close">Κλείσιμο navigation drawer</string>
+</resources>

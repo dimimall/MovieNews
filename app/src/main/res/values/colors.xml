@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorAccent">#FF4081</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+
+    <color name="colorPrimaryDark">#000000</color>
+
+    <color name="colorPrimary">#1b1b1b</color>
+
+    <color name="gold">#E9D49F</color>
+    <!--<color name="gold">#f0eadc</color>-->
+    <!--<color name="gold">#956D1C</color>-->
+
+    <color name="grey">#3e3e3e</color>
+    <color name="lightGrey">#585858</color>
+    <color name="lightRed">#000000</color>
+
+    <color name="blackTrasp">#aa000000</color>
+    <color name="brown">#3E5A81</color>
+
+    <color name="transparent">#0096b7d4</color>
+    <color name="blue">#362b31 </color>
+    <color name="siel">#f0eadc</color>
+    <color name="mpez">#E0DBD5</color>
+    <color name="darkblue">#3E5A81</color>
+</resources>
