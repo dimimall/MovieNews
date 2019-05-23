@@ -1,5 +1,7 @@
 package app.opensofthellas.gr.movienews.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +12,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.io.Serializable;
 import java.util.List;
 
+import app.opensofthellas.gr.movienews.ItemActivity;
 import app.opensofthellas.gr.movienews.R;
 import app.opensofthellas.gr.movienews.models.Movie;
 
@@ -19,9 +23,11 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
     private List<Movie> movies;
     private String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/w500";
+    Context context;
 
-    public MoviesAdapter(List<Movie> movies) {
+    public MoviesAdapter(List<Movie> movies,Context context) {
         this.movies = movies;
+        this.context = context;
     }
 
     @Override
@@ -52,6 +58,15 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
             title = itemView.findViewById(R.id.item_movie_title);
             rating = itemView.findViewById(R.id.item_movie_rating);
             poster = itemView.findViewById(R.id.item_movie_poster);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, ItemActivity.class);
+                    intent.putExtra("item", (Serializable) movies.get(getAdapterPosition()));
+                    context.startActivity(intent);
+                }
+            });
         }
 
         public void bind(Movie movie) {

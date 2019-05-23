@@ -6,14 +6,17 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.util.List;
 
 import app.opensofthellas.gr.movienews.adapters.ImageAdapter;
 import app.opensofthellas.gr.movienews.adapters.MoviesAdapter;
+import app.opensofthellas.gr.movienews.adapters.PeopleAdapter;
 import app.opensofthellas.gr.movienews.adapters.TvAdapter;
 import app.opensofthellas.gr.movienews.controllers.Controller_nowplaying;
+import app.opensofthellas.gr.movienews.controllers.Controller_people;
 import app.opensofthellas.gr.movienews.controllers.Controller_popular;
 import app.opensofthellas.gr.movienews.controllers.Controller_toprate;
 import app.opensofthellas.gr.movienews.controllers.Controller_tvontheair;
@@ -21,8 +24,10 @@ import app.opensofthellas.gr.movienews.controllers.Controller_tvpopular;
 import app.opensofthellas.gr.movienews.controllers.Controller_tvtoprated;
 import app.opensofthellas.gr.movienews.controllers.Controller_upcoming;
 import app.opensofthellas.gr.movienews.interfaces.OnGetMoviesCallback;
+import app.opensofthellas.gr.movienews.interfaces.OnGetPeopleCallback;
 import app.opensofthellas.gr.movienews.interfaces.OnGetTvCallback;
 import app.opensofthellas.gr.movienews.models.Movie;
+import app.opensofthellas.gr.movienews.models.People;
 import app.opensofthellas.gr.movienews.models.Television;
 
 public class ItemListActivity extends AppCompatActivity {
@@ -31,6 +36,7 @@ public class ItemListActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter tvAdapter;
+    private RecyclerView.Adapter peopleAdapter;
     private Controller_popular controller_popular;
     private Controller_upcoming controller_upcoming;
     private Controller_toprate controller_toprate;
@@ -38,11 +44,16 @@ public class ItemListActivity extends AppCompatActivity {
     private Controller_tvontheair controller_tvontheair;
     private Controller_tvpopular controller_tvpopular;
     private Controller_tvtoprated controller_tvtoprated;
+    private Controller_people controller_people;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
 
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
@@ -65,7 +76,7 @@ public class ItemListActivity extends AppCompatActivity {
             controller_popular.getMovies(new OnGetMoviesCallback() {
                 @Override
                 public void onSuccess(List<Movie> movies) {
-                    mAdapter = new MoviesAdapter(movies);
+                    mAdapter = new MoviesAdapter(movies,ItemListActivity.this);
                     recyclerView.setAdapter(mAdapter);
                 }
 
@@ -81,7 +92,7 @@ public class ItemListActivity extends AppCompatActivity {
             controller_upcoming.getMovies(new OnGetMoviesCallback() {
                 @Override
                 public void onSuccess(List<Movie> movies) {
-                    mAdapter = new MoviesAdapter(movies);
+                    mAdapter = new MoviesAdapter(movies,ItemListActivity.this);
                     recyclerView.setAdapter(mAdapter);
                 }
 
@@ -97,7 +108,7 @@ public class ItemListActivity extends AppCompatActivity {
             controller_toprate.getMovies(new OnGetMoviesCallback() {
                 @Override
                 public void onSuccess(List<Movie> movies) {
-                    mAdapter = new MoviesAdapter(movies);
+                    mAdapter = new MoviesAdapter(movies,ItemListActivity.this);
                     recyclerView.setAdapter(mAdapter);
                 }
 
@@ -161,7 +172,7 @@ public class ItemListActivity extends AppCompatActivity {
             controller_nowplaying.getMovies(new OnGetMoviesCallback() {
                 @Override
                 public void onSuccess(List<Movie> movies) {
-                    mAdapter = new MoviesAdapter(movies);
+                    mAdapter = new MoviesAdapter(movies,ItemListActivity.this);
                     recyclerView.setAdapter(mAdapter);
                 }
 
@@ -171,6 +182,32 @@ public class ItemListActivity extends AppCompatActivity {
                 }
             });
         }
-    }
+        else if (controller.equals("8"))
+        {
+            controller_people = Controller_people.getInstance();
+            controller_people.getPeople(new OnGetPeopleCallback() {
+                @Override
+                public void onSuccess(List<People> people) {
+                    peopleAdapter = new PeopleAdapter(people,ItemListActivity.this);
+                    recyclerView.setAdapter(peopleAdapter);
+                }
 
+                @Override
+                public void onError() {
+                    Toast.makeText(ItemListActivity.this, "Please check your internet connection.", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

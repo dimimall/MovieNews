@@ -2,11 +2,14 @@ package app.opensofthellas.gr.movienews.interfaces;
 
 import java.util.List;
 
+import app.opensofthellas.gr.movienews.models.CastingResponse;
 import app.opensofthellas.gr.movienews.models.Movie;
 import app.opensofthellas.gr.movienews.models.MoviesResponse;
+import app.opensofthellas.gr.movienews.models.PeopleResponse;
 import app.opensofthellas.gr.movienews.models.TvResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface MovieApi {
@@ -57,5 +60,31 @@ public interface MovieApi {
             @Query("api_key") String apiKey,
             @Query("language") String language,
             @Query("page") int page
+    );
+
+    @GET("person/popular")
+    Call<PeopleResponse> getPopularPerson(
+            @Query("api_key") String apiKey,
+            @Query("language") String language,
+            @Query("page") int page
+    );
+
+    @GET("person/popular")
+    Call<MoviesResponse> getPersonMovie(
+            @Query("api_key") String apiKey,
+            @Query("language") String language,
+            @Query("page") int page
+    );
+
+    @GET("movie/{movie_id}/credits")
+    Call<CastingResponse> getCastingMovie(
+            @Path("movie_id") int movie_id,
+            @Query("api_key") String apiKey
+    );
+
+    @GET("movie/{movie_id}/similar")
+    Call<MoviesResponse> getSimilarMovie(
+            @Path("movie_id") int movie_id,
+            @Query("api_key") String apiKey
     );
 }

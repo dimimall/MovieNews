@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.List;
 
-public class Movie implements Serializable {
+public class KnownFor implements Serializable {
 
     @SerializedName("id")
     @Expose
@@ -16,33 +16,36 @@ public class Movie implements Serializable {
     @Expose
     private String title;
 
+    @SerializedName("name")
+    @Expose
+    private String name;
+
+    @SerializedName("media_type")
+    @Expose
+    private String mediaType;
+
     @SerializedName("poster_path")
     @Expose
     private String posterPath;
-
-    @SerializedName("release_date")
-    @Expose
-    private String releaseDate;
 
     @SerializedName("vote_average")
     @Expose
     private float rating;
 
-    @SerializedName("overview")
-    @Expose
-    private String overview;
-
     @SerializedName("genre_ids")
     @Expose
     private List<Integer> genreIds;
 
-    public int getId() {
-        return id;
-    }
+    @SerializedName("release_date")
+    @Expose
+    private String release_date;
+
 
     public void setId(int id) {
         this.id = id;
     }
+
+    public int getId() { return this.id; }
 
     public String getTitle() {
         return title;
@@ -52,6 +55,10 @@ public class Movie implements Serializable {
         this.title = title;
     }
 
+    public String getName() { return this.name; }
+
+    public void setName(String name) { this.name = name; }
+
     public String getPosterPath() {
         return posterPath;
     }
@@ -60,12 +67,12 @@ public class Movie implements Serializable {
         this.posterPath = posterPath;
     }
 
-    public String getReleaseDate() {
-        return releaseDate;
+    public String getMediaType() {
+        return mediaType;
     }
 
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
+    public void setMediaType(String mediaType) {
+        this.mediaType = mediaType;
     }
 
     public float getRating() {
@@ -76,10 +83,6 @@ public class Movie implements Serializable {
         this.rating = rating;
     }
 
-    public String getOverview() { return this.overview; }
-
-    public void setOverview(String overview) { this.overview = overview; }
-
     public List<Integer> getGenreIds() {
         return genreIds;
     }
@@ -87,5 +90,12 @@ public class Movie implements Serializable {
     public void setGenreIds(List<Integer> genreIds) {
         this.genreIds = genreIds;
     }
+
+    public void setRelease_date(String release_date){
+        this.release_date = release_date;
+    }
     
+    public String getRelease_date(){
+        return this.release_date;
+    }
 }
